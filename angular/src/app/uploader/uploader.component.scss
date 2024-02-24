@@ -1,0 +1,25 @@
+.upload {
+  font-weight: bold;
+  color: #28a745;
+  margin-left: 15px;
+  line-height: 36px;
+}
+
+.img img {
+  border: 1px solid #ccc;
+}
+
+.profile-style .img img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+}
+
+.profile-style .progress {
+  width: 140px;
+  margin: auto;
+}
+
+.normal-style .img img {
+  max-height: 400px;
+}

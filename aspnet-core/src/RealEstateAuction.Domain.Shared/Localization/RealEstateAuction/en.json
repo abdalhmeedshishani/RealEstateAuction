@@ -1,0 +1,27 @@
+{
+  "Culture": "en",
+  "Texts": {
+    "Menu:Home": "Home",
+    "Welcome": "Welcome",
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "Menu:RealEstateAuction": "Book Store",
+    "Menu:RealEstates": "RealEstates",
+    "Actions": "Actions",
+    "Close": "Close",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "PublishDate": "Publish date",
+    "NewRealEstate": "New RealEstate",
+    "Name": "Name",
+    "Type": "Type",
+    "Price": "Price",
+    "CreationTime": "Creation time",
+    "AreYouSure": "Are you sure?",
+    "AreYouSureToDelete": "Are you sure you want to delete this item?",
+    "Permission:RealEstateAuction": "RealEstateAuction",
+    "Permission:RealEstates": "RealEstate Management",
+    "Permission:RealEstates.Create": "Creating new RealEstates",
+    "Permission:RealEstates.Edit": "Editing the RealEstates",
+    "Permission:RealEstates.Delete": "Deleting the RealEstates"
+  }
+}

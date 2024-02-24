@@ -1,0 +1,278 @@
+<button (click)="send()">click</button>
+<div *ngFor="let message of messages">
+  <span>{{ message }}</span>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col col-md-6">
+        <h5 class="card-title">{{ '::Houses' | abpLocalization }}</h5>
+      </div>
+      <div class="text-end col col-md-6">
+        <div class="text-lg-end pt-2">
+          <button
+            *abpPermission="'RealEstateAuction.RealEstates.Create'"
+            id="create"
+            class="btn btn-primary"
+            type="button"
+            (click)="createHouse()"
+          >
+            <i class="fa fa-plus me-1"></i>
+            <span>{{ '::NewHouse' | abpLocalization }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col col-md-6">
+            <h5 class="card-title">
+              {{ '::Houses' | abpLocalization }}
+            </h5>
+          </div>
+          <div class="text-end col col-md-6"></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 mt-3" *ngFor="let house of house.items; index as i">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>
+                  {{ house.name }}
+                </mat-card-title>
+                <mat-card-subtitle><span class="blink-text">Cars</span></mat-card-subtitle>
+              </mat-card-header>
+              <app-image-uploader
+                [config]="uploaderConfig2"
+                [imagesNames]="house.houseImages"
+              ></app-image-uploader>
+              <mat-card-content class="mt-2">
+                <div class="mt-2">
+                  <p class="pe-11">
+                    <span class="text-primary fw-bold">Original Price</span>:
+                    <span class="text-dark">{{ house.price | currency : 'EUR' : '€' }}</span>
+                  </p>
+                  <p class="pe-11">
+                    <span class="text-primary fw-bold">Current Bid Price</span>:
+                    <span class="text-dark">{{ house.bidPrice | currency : 'EUR' : '€' }}</span>
+                    <button class="custom-btn btn-16 ms-2" (click)="openDialog()">Bid</button>
+                  </p>
+                </div>
+                <div class="d-flex">
+                  <div class="p-2">floors: {{ house.numberOfFloors }}</div>
+                  <div class="p-2">ba: {{ house.numberOfBathrooms }}</div>
+                  <div class="p-2">bds: {{ house.numberOfBedrooms }}</div>
+                </div>
+                <!-- <img src="../../assets/images/Untitled.png" alt="" /> -->
+              </mat-card-content>
+              <mat-card-actions class="justify-content-center mt-1">
+                <a
+                  mat-raised-button
+                  class="me-2"
+                  [routerLink]="['/house-details', house.id, 'details']"
+                  color="accent"
+                >
+                  <span> {{ '::Details' | abpLocalization }} </span>
+                  <!-- <i class="fas fa-info-circle"></i> -->
+                </a>
+                <div>
+                  <button
+                    *ngSwitchDefault="isCurrentUserAuthorized(this.house.creatorId)"
+                    mat-raised-button
+                    class="me-2"
+                    color="primary"
+                    (click)="editHouse(house.id)"
+                  >
+                    <span>
+                      {{ '::Edit' | abpLocalization }}
+                    </span>
+                    <!-- <i class="fas fa-edit"></i> -->
+                  </button>
+                </div>
+                <button mat-raised-button color="warn" (click)="delete(house.id)">
+                  <span> {{ '::Delete' | abpLocalization }}</span>
+                  <!-- <i class="fas fa-trash-alt"></i> -->
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>{{ (selectedHouse.id ? '::Edit' : '::NewHouse') | abpLocalization }}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="mt-2">
+        <label for="name">Name</label><span> * </span>
+        <input type="text" id="name" class="form-control" formControlName="name" autofocus />
+      </div>
+
+      <app-image-uploader
+        (onUploadFinished)="uploadFinished($event)"
+        [config]="uploaderConfig"
+        [imagesNames]="selectedHouse.houseImages"
+      ></app-image-uploader>
+
+      <div class="mt-2">
+        <label for="address">Address</label><span> * </span>
+        <input type="text" id="address" class="form-control" formControlName="address" />
+      </div>
+
+      <div class="mt-2">
+        <label for="sizeInSquareFeet">Size (Sq. Feet)</label><span> * </span>
+        <input
+          type="number"
+          id="sizeInSquareFeet"
+          class="form-control"
+          formControlName="sizeInSquareFeet"
+        />
+      </div>
+
+      <div class="mt-2">
+        <label for="city">City</label><span> * </span>
+        <input type="text" id="city" class="form-control" formControlName="city" />
+      </div>
+
+      <div class="mt-2">
+        <label for="state">State</label><span> * </span>
+        <input type="text" id="state" class="form-control" formControlName="state" />
+      </div>
+
+      <div class="mt-2">
+        <label for="zipCode">Zip Code</label><span> * </span>
+        <input type="text" id="zipCode" class="form-control" formControlName="zipCode" />
+      </div>
+
+      <div class="mt-2">
+        <label for="price">Price</label><span> * </span>
+        <input type="number" id="price" class="form-control" formControlName="price" />
+      </div>
+
+      <div class="mt-2">
+        <label for="isForSale">For Sale</label><span> * </span>
+        <input type="checkbox" id="isForSale" formControlName="isForSale" />
+      </div>
+
+      <div class="mt-2">
+        <label for="description">Description</label><span> * </span>
+        <textarea id="description" class="form-control" formControlName="description"></textarea>
+      </div>
+
+      <div class="mt-2">
+        <label for="numberOfBedrooms">Number of Bedrooms</label><span> * </span>
+        <input
+          type="number"
+          id="numberOfBedrooms"
+          class="form-control"
+          formControlName="numberOfBedrooms"
+        />
+      </div>
+
+      <div class="mt-2">
+        <label for="numberOfBathrooms">Number of Bathrooms</label><span> * </span>
+        <input
+          type="number"
+          id="numberOfBathrooms"
+          class="form-control"
+          formControlName="numberOfBathrooms"
+        />
+      </div>
+
+      <div class="mt-2">
+        <label for="hasGarage">Has Garage</label><span> * </span>
+        <input type="checkbox" id="hasGarage" formControlName="hasGarage" />
+      </div>
+
+      <div class="mt-2">
+        <label for="numberOfFloors">Number of Floors</label><span> * </span>
+        <input
+          type="number"
+          id="numberOfFloors"
+          class="form-control"
+          formControlName="numberOfFloors"
+        />
+      </div>
+
+      <div class="mt-2">
+        <label for="hasBasement">Has Basement</label><span> * </span>
+        <input type="checkbox" id="hasBasement" formControlName="hasBasement" />
+      </div>
+
+      <div class="mt-2">
+        <label for="hasSwimmingPool">Has Swimming Pool</label><span> * </span>
+        <input type="checkbox" id="hasSwimmingPool" formControlName="hasSwimmingPool" />
+      </div>
+
+      <div class="mt-2">
+        <label for="hasFireplace">Has Fireplace</label><span> * </span>
+        <input type="checkbox" id="hasFireplace" formControlName="hasFireplace" />
+      </div>
+
+      <div class="mt-2">
+        <label for="hasSecuritySystem">Has Security System</label><span> * </span>
+        <input type="checkbox" id="hasSecuritySystem" formControlName="hasSecuritySystem" />
+      </div>
+
+      <!-- <div class="mt-2">
+        <label for="book-type">Type</label><span> * </span>
+        <select class="form-control" id="book-type" formControlName="type">
+          <option [ngValue]="null">Select a book type</option>
+          <option [ngValue]="type.value" *ngFor="let type of bookTypes">
+            {{ '::Enum:BookType.' + type.value | abpLocalization }}
+          </option>
+        </select>
+      </div> -->
+
+      <!-- <div class="mt-2">
+        <label>Publish date</label><span> * </span>
+        <input
+          #datepicker="ngbDatepicker"
+          class="form-control"
+          name="datepicker"
+          formControlName="publishDate"
+          ngbDatepicker
+          (click)="datepicker.toggle()"
+        />
+      </div> -->
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ '::Close' | abpLocalization }}
+    </button>
+
+    <button class="btn btn-primary" (click)="save()" [disabled]="form.invalid">
+      <i class="fa fa-check mr-1"></i>
+      {{ '::Save' | abpLocalization }}
+    </button>
+  </ng-template>
+</abp-modal>
+
+<ng-template #callAPIDialog>
+  <img src="../../assets/images/Raise-Price.png" width="70px" height="70px" alt="" srcset="" />
+  <mat-form-field floatLabel="always">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" class="example-right-align" placeholder="0.00" />
+    <span matTextPrefix>$&nbsp;</span>
+    <!-- <span matTextSuffix>.00</span> -->
+  </mat-form-field>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose="no">No</button>
+    <button mat-button matDialogClose="yes">Yes</button>
+  </mat-dialog-actions>
+</ng-template>
