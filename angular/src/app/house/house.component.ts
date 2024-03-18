@@ -1,8 +1,8 @@
 import { ConfigStateService, ListService, PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HouseDto, HouseService } from '@proxy/houses';
+import { BidOffer, HouseDto, HouseService } from '@proxy/houses';
 import { UploaderMode, UploaderStyle, UploaderType } from '../uploader/uploaderMode.enum';
 import { UploaderConfig } from '../uploader/uploader.config';
 import { Uploader } from '../uploader/UploaderImage.data';
@@ -25,6 +25,8 @@ export class HouseComponent {
   hasSwimmingPool: boolean = false;
   hasSecuritySystem: boolean = false;
   price: number = 0;
+  bids: number[] = this.houseService.bids;
+  testBids: BidOffer[] = this.houseService.testBids;
   uploaderConfig = new UploaderConfig(
     UploaderStyle.Normal,
     UploaderMode.AddEdit,
@@ -37,6 +39,9 @@ export class HouseComponent {
   );
   authorizationChecked: boolean = false;
   messages: string[] = this.houseService.messages;
+  bidPrice: number = 0;
+  currentBidPrice: number;
+  selectedId: string[] = [];
   constructor(
     public readonly list: ListService,
     private houseService: HouseService,
@@ -60,26 +65,55 @@ export class HouseComponent {
     this.houseService.send('New Notification');
   }
 
+  show(id: string) {
+    let a = this.selectedId.includes(id);
+    return a;
+  }
+
   isCurrentUserAuthorized(id: string): boolean {
-    console.log('isCurrentUserAuthorized called with postId:', id);
+    //console.log('isCurrentUserAuthorized called with postId:', id);
     let currentUser = this.config.getOne('currentUser');
     //console.log(currentUser.id);
     return currentUser.id === id;
   }
 
-  g(price: number) {
-    console.log(price);
+  bidThePrice(id: string, bidPrice: number) {
+    this.houseService.bidPrice(id, bidPrice).subscribe({
+      next: () => {
+        this.houseService.realTimeBidPrice(bidPrice);
+        this.bids.push(bidPrice);
+      },
+    });
   }
 
-  openDialog() {
+  testBidThePrice(id: string, bidPrice: number) {
+    let bid = new BidOffer();
+    bid.id = id;
+    bid.bidPrice.push(bidPrice);
+
+    this.houseService.bidPrice(id, this.price).subscribe({
+      next: () => {
+        this.houseService.testRealTimeBidPrice(bid);
+        this.testBids.push(bid);
+      },
+    });
+  }
+
+  openDialog(id: string, bidPrice: number) {
     let dialogRef = this.dialog.open(this.callAPIDialog);
     dialogRef.updateSize('500px');
+    dialogRef.afterOpened().subscribe(() => {
+      this.currentBidPrice = bidPrice;
+    });
     dialogRef.afterClosed().subscribe(result => {
       // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
       if (result !== undefined) {
         if (result === 'yes') {
-          // TODO: Replace the following line with your code.
-          console.log('User clicked yes.');
+          this.testBidThePrice(id, this.bidPrice);
+          var a = this.selectedId.includes(id);
+          if (a == false) {
+            this.selectedId.push(id);
+          }
         } else if (result === 'no') {
           // TODO: Replace the following line with your code.
           console.log('User clicked no.');
@@ -87,6 +121,29 @@ export class HouseComponent {
       }
     });
   }
+
+  // openDialog(id: string, bidPrice: number) {
+  //   let dialogRef = this.dialog.open(this.callAPIDialog);
+  //   dialogRef.updateSize('500px');
+  //   dialogRef.afterOpened().subscribe(() => {
+  //     this.currentBidPrice = bidPrice;
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
+  //     if (result !== undefined) {
+  //       if (result === 'yes') {
+  //         this.bidThePrice(id, this.bidPrice);
+  //         var a = this.selectedId.includes(id);
+  //         if (a == false) {
+  //           this.selectedId.push(id);
+  //         }
+  //       } else if (result === 'no') {
+  //         // TODO: Replace the following line with your code.
+  //         console.log('User clicked no.');
+  //       }
+  //     }
+  //   });
+  // }
 
   createHouse() {
     this.buildForm();

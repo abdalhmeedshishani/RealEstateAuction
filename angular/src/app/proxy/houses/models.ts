@@ -32,6 +32,11 @@ export class HouseDto extends RealEstateDto {
   houseImages: HouseImagesDtos[] = [];
 }
 
+export class BidOffer {
+  id: string;
+  bidPrice: number[] = [];
+}
+
 // export interface HouseDetailsDto extends RealEstateDto {
 //   numberOfBedrooms: number;
 //   numberOfBathrooms: number;

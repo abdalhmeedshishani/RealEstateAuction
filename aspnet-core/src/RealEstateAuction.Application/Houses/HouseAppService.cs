@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RealEstateAuction.Permissions;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,14 @@ namespace RealEstateAuction.Houses
             DeletePolicyName = RealEstateAuctionPermissions.RealEstates.Delete;
         }
 
-
+        public async Task BidPrice(Guid id,[FromBody] decimal bidPrice)
+        {
+            
+            var house = await _houseRepository.GetAsync(id);
+            house.BidPrice = bidPrice;
+            await Repository.UpdateAsync(house, autoSave: true);
+        }
+        
         public override Task<HouseDto> CreateAsync(CreateUpdateHouseDto input)
         {
             

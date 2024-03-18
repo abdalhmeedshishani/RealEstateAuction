@@ -1,4 +1,4 @@
-import type { CreateUpdateHouseDto, HouseDetailsDto, HouseDto } from './models';
+import type { BidOffer, CreateUpdateHouseDto, HouseDetailsDto, HouseDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -11,6 +11,26 @@ export class HouseService {
   apiName = 'Default';
 
   connection = new signalR.HubConnectionBuilder().withUrl('https://localhost:44381/hub').build();
+
+  bidPrice = (id: string, bidPrice: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, any>(
+      {
+        method: 'POST',
+        url: `/api/app/house/${id}/bid-price`,
+        body: bidPrice,
+      },
+      { apiName: this.apiName, ...config }
+    );
+
+  // testBidPrice = (bid: BidOffer, config?: Partial<Rest.Config>) =>
+  //   this.restService.request<any, any>(
+  //     {
+  //       method: 'POST',
+  //       url: `/api/app/house/test-bid-price`,
+  //       body: bid,
+  //     },
+  //     { apiName: this.apiName, ...config }
+  //   );
 
   create = (input: CreateUpdateHouseDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, HouseDto>(
@@ -73,10 +93,19 @@ export class HouseService {
       { apiName: this.apiName, ...config }
     );
   messages: string[] = [];
-  message: string = '';
+  bids: number[] = [];
+  testBids: BidOffer[] = [];
 
   send(m: string) {
     this.connection.send('NewNotification', m);
+  }
+
+  realTimeBidPrice(bidPrice: number) {
+    this.connection.send('BidPrice', bidPrice);
+  }
+
+  testRealTimeBidPrice(bid: BidOffer) {
+    this.connection.send('TestBidPrice', bid);
   }
 
   constructor(private restService: RestService) {
@@ -86,6 +115,14 @@ export class HouseService {
     this.connection.on('notificationReceived', (messageHere: string) => {
       const newMessage = ` ${messageHere}`;
       this.messages.push(newMessage);
+    });
+    // this.connection.on('bidPriceReceived', (messageHere: number) => {
+    //   const newMessage = messageHere;
+    //   //this.bids.push(messageHere);
+    // });
+    this.connection.on('testBidPriceReceived', (messageHere: BidOffer) => {
+      const newMessage = messageHere;
+      //this.bids.push(messageHere);
     });
     this.connection.start();
     console.log('this is start:', this.connection.start());
