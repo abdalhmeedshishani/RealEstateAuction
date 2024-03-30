@@ -12,8 +12,7 @@ import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/uploader/uplo
 })
 export class HouseDetailsComponent {
   isModalOpen = false;
-  selectedHouse2 = {} as HouseDetailsDto;
-  selectedHouse: HouseDetailsDto = new HouseDetailsDto();
+  houseDetails: HouseDetailsDto = new HouseDetailsDto();
   uploaderConfig = new UploaderConfig(
     UploaderStyle.Profile,
     UploaderMode.Details,
@@ -45,12 +44,43 @@ export class HouseDetailsComponent {
     this.setHouseId();
     this.loadHouseDetails();
   }
+  slides: any[] = [
+    { img: '../../../assets/images/1.jpg' },
+    { img: '../../../assets/images/2.jpg' },
+    { img: '../../../assets/images/3.jpg' },
+    { img: '../../../assets/images/4.jpg' },
+  ];
+  slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
+
+  addSlide() {
+    this.slides.push({ img: '../../../assets/images/5.jpg' });
+  }
+
+  removeSlide() {
+    this.slides.length = this.slides.length - 1;
+  }
+
+  slickInit(e) {
+    console.log('slick initialized');
+  }
+
+  breakpoint(e) {
+    console.log('breakpoint');
+  }
+
+  afterChange(e) {
+    console.log('afterChange');
+  }
+
+  beforeChange(e) {
+    console.log('beforeChange');
+  }
 
   private loadHouseDetails() {
     let houseId = this.setHouseId();
     this.houseService.getDetails(houseId).subscribe({
       next: houseFromApi => {
-        this.selectedHouse = houseFromApi;
+        this.houseDetails = houseFromApi;
       },
       error: (e: HttpErrorResponse) => {
         console.log(e);

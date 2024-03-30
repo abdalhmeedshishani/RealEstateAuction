@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class HouseComponent {
   house = { items: [], totalCount: 0 } as PagedResultDto<HouseDto>;
+  admin: boolean;
   isModalOpen = false;
   selectedHouse: HouseDto = new HouseDto();
   form: FormGroup;
@@ -71,30 +72,20 @@ export class HouseComponent {
   }
 
   isCurrentUserAuthorized(id: string): boolean {
-    //console.log('isCurrentUserAuthorized called with postId:', id);
     let currentUser = this.config.getOne('currentUser');
-    //console.log(currentUser.id);
-    return currentUser.id === id;
+    if (currentUser.userName == 'admin') {
+      this.admin = true;
+      return false;
+    } else if (currentUser.id === id) {
+      return true;
+    }
   }
 
   bidThePrice(id: string, bidPrice: number) {
     this.houseService.bidPrice(id, bidPrice).subscribe({
       next: () => {
         this.houseService.realTimeBidPrice(bidPrice);
-        this.bids.push(bidPrice);
-      },
-    });
-  }
-
-  testBidThePrice(id: string, bidPrice: number) {
-    let bid = new BidOffer();
-    bid.id = id;
-    bid.bidPrice.push(bidPrice);
-
-    this.houseService.bidPrice(id, this.price).subscribe({
-      next: () => {
-        this.houseService.testRealTimeBidPrice(bid);
-        this.testBids.push(bid);
+        //this.bids.push(bidPrice);
       },
     });
   }
@@ -109,7 +100,7 @@ export class HouseComponent {
       // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
       if (result !== undefined) {
         if (result === 'yes') {
-          this.testBidThePrice(id, this.bidPrice);
+          this.bidThePrice(id, this.bidPrice);
           var a = this.selectedId.includes(id);
           if (a == false) {
             this.selectedId.push(id);
@@ -121,29 +112,6 @@ export class HouseComponent {
       }
     });
   }
-
-  // openDialog(id: string, bidPrice: number) {
-  //   let dialogRef = this.dialog.open(this.callAPIDialog);
-  //   dialogRef.updateSize('500px');
-  //   dialogRef.afterOpened().subscribe(() => {
-  //     this.currentBidPrice = bidPrice;
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
-  //     if (result !== undefined) {
-  //       if (result === 'yes') {
-  //         this.bidThePrice(id, this.bidPrice);
-  //         var a = this.selectedId.includes(id);
-  //         if (a == false) {
-  //           this.selectedId.push(id);
-  //         }
-  //       } else if (result === 'no') {
-  //         // TODO: Replace the following line with your code.
-  //         console.log('User clicked no.');
-  //       }
-  //     }
-  //   });
-  // }
 
   createHouse() {
     this.buildForm();

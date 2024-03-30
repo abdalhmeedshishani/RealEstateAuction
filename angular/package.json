@@ -33,7 +33,11 @@
     "@angular/router": "~17.0.0",
     "@microsoft/signalr": "^8.0.0",
     "bootstrap-icons": "~1.8.0",
+    "jquery": "^3.7.1",
+    "ngx-slick-carousel": "^17.0.0",
     "rxjs": "~7.8.0",
+    "slick-carousel": "^1.8.1",
+    "slick-slider": "^1.8.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.14.0"
   },

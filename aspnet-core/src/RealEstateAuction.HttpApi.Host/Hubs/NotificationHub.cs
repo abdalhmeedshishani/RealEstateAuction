@@ -22,8 +22,8 @@ namespace RealEstateAuction.Hubs
         public async Task NewNotification(string notification) =>
             await Clients.All.SendAsync("notificationReceived", _currentUser.UserName, notification);
 
-       /* public async Task BidPrice(decimal bidPrice) =>
-            await Clients.All.SendAsync("bidPriceReceived", bidPrice);*/
+        public async Task BidPrice(decimal bidPrice) =>
+            await Clients.All.SendAsync("bidPriceReceived", bidPrice);
 
         public async Task TestBidPrice(BidOffer bidOffer) =>
             await Clients.All.SendAsync("testBidPriceReceived", bidOffer.Id, bidOffer.BidPrice);

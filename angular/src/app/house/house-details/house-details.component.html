@@ -1,17 +1,131 @@
 <!-- <app-image-uploader [config]="uploaderConfig" [imagesNames]="imagesTest"></app-image-uploader> -->
+<div class="container mt-5">
+  <ngx-slick-carousel
+    class="carousel"
+    #slickModal="slick-carousel"
+    [config]="slideConfig"
+    (init)="slickInit($event)"
+    (breakpoint)="breakpoint($event)"
+    (afterChange)="afterChange($event)"
+    (beforeChange)="beforeChange($event)"
+  >
+    @for (slide of slides; track slide.img) {
+    <div ngxSlickItem class="slide">
+      <img src="{{ slide.img }}" alt="" width="100%" />
+    </div>
+    }
+  </ngx-slick-carousel>
+</div>
 
-<!-- <div style="width: 80%; background-color: black">
-  <p-galleria [numVisible]="2" [value]="images">
-    <ng-template pTemplate="item" let-item>
-      <img [src]="item.previewImageSrc" [alt]="item.alt" [title]="item.title" style="width: 50%" />
-    </ng-template>
-
-    <ng-template pTemplate="thumbnail" let-item width="50%">
-      <div class="grid grid-nogutter justify-content-center">
-        <img [src]="item.thumbnailImageSrc" [alt]="item.alt" [title]="item.title" width="80%" />
+<div class="container mt-2">
+  <div class="shadow-box p-4">
+    <h1 class="text-dark duration-text">
+      <span class="duration-text-time">About</span>
+      <span class="duration-text-time" class="mx-1">The</span>
+      <span class="duration-text-time">House</span>
+    </h1>
+    <hr />
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="m-0 pl-13px duration-text GradientText">Home Specifications</h1>
+        <div class="d-flex flex-md-row">
+          <div class="p-2 house-details">{{ houseDetails.numberOfBedrooms }} Beds</div>
+          <div class="p-2 house-details">{{ houseDetails.numberOfBathrooms }} Bath</div>
+          <div class="p-2 house-details">{{ houseDetails.numberOfFloors }} Floors</div>
+        </div>
       </div>
-    </ng-template>
-  </p-galleria>
-</div> -->
+      <div class="col-md-6">
+        <h1 class="m-0 pl-13px duration-text GradientText">Pricing Information</h1>
+        <div class="d-flex flex-column">
+          <div class="p-1 px-2 house-details">Price: ${{ houseDetails.price }}</div>
+          <div class="p-1 px-2 house-details">Current Bid Price: ${{ houseDetails.bidPrice }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="m-0 pl-13px duration-text GradientText">Address</h1>
+        <div class="d-flex d-flex flex-column">
+          <div class="p-1 px-2 house-details">City: {{ houseDetails.city }}</div>
+          <div class="p-1 px-2 house-details">State: {{ houseDetails.state }}</div>
+          <div class="p-1 px-2 house-details">ZipCode: {{ houseDetails.zipCode }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="m-0 pl-13px duration-text GradientText">Amenities</h1>
+        <div class="row">
+          <div class="house-details px-3 col-xxl-6">
+            Basement:
+            <span *ngIf="houseDetails.hasBasement === true; else falseIcon"
+              ><i class="fa-solid fa-circle-check"></i
+            ></span>
+            <ng-template #falseIcon>
+              <i class="fa-solid fa-circle-xmark" style="color: #ea0000"></i>
+            </ng-template>
+          </div>
+          <div class="house-details px-3 col-xxl-6">
+            Fireplace:
+            <span *ngIf="houseDetails.hasFireplace === true; else falseIcon"
+              ><i class="fa-solid fa-circle-check"></i
+            ></span>
+            <ng-template #falseIcon>
+              <i class="fa-solid fa-circle-xmark" style="color: #ea0000"></i>
+            </ng-template>
+          </div>
+          <div class="w-100"></div>
+          <div class="house-details px-3 col-xxl-6">
+            Security System:
+            <span *ngIf="houseDetails.hasSecuritySystem === true; else falseIcon"
+              ><i class="fa-solid fa-circle-check"></i
+            ></span>
+            <ng-template #falseIcon>
+              <i class="fa-solid fa-circle-xmark" style="color: #ea0000"></i>
+            </ng-template>
+          </div>
+          <div class="house-details px-3 col-xxl-6">
+            Garage:
+            <span *ngIf="houseDetails.hasGarage === true; else falseIcon"
+              ><i class="fa-solid fa-circle-check"></i
+            ></span>
+            <ng-template #falseIcon>
+              <i class="fa-solid fa-circle-xmark" style="color: #ea0000"></i>
+            </ng-template>
+          </div>
+          <div class="house-details px-3">
+            Swimming Pool:
+            <span *ngIf="houseDetails.hasSwimmingPool === true; else falseIcon"
+              ><i class="fa-solid fa-circle-check"></i
+            ></span>
+            <ng-template #falseIcon>
+              <i class="fa-solid fa-circle-xmark" style="color: #ea0000"></i>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<button type="button" class="btn btn-primary btn-sm">Primary</button>
+<div class="container mt-2">
+  <div class="box-style bg-dark">
+    <div class="text-start text-break highlight-text">
+      <span class="text-primary">Description</span>
+      <hr />
+      <div>{{ houseDetails.description }}</div>
+      <!-- <div>
+        Welcome to 18-73 Hart St, Ridgewood, NY 11385! Nestled on a serene tree-lined block, this
+        semi-attached brick two-family house with a shared driveway and a two-car garage is a gem
+        waiting to be discovered. The first floor offers a cozy two-bedroom apartment with one
+        bathroom, featuring a spacious living room, dining room, and kitchen. Impeccably maintained
+        with original parcay floors, this unit exudes charm and comfort. Step outside onto the
+        walk-out back deck accessible from the rear bedrooms, offering a peaceful retreat. Venture
+        downstairs to find a basement transformed into a delightful recreation area with a
+        convenient half bath, counters, bar sink, and baseboard heating. Ascend to the second floor
+        to discover a large bright and sunny three-bedroom apartment with one bathroom, ready for
+        you to make it your own. This property boasts numerous upgrades completed with work permits
+        in 2005, including an oil to gas conversion in 2007 and a new roof installed in 2010.
+        conversion in and a new roof installed installed installed perm
+      </div> -->
+    </div>
+  </div>
+</div>
