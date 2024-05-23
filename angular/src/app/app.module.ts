@@ -17,6 +17,7 @@ import { AbpOAuthModule } from '@abp/ng.oauth';
 import { ThemeLeptonXModule } from '@abp/ng.theme.lepton-x';
 import { SideMenuLayoutModule } from '@abp/ng.theme.lepton-x/layouts';
 import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [
     BrowserModule,
@@ -39,6 +40,7 @@ import { AccountLayoutModule } from '@abp/ng.theme.lepton-x/account';
               ThemeLeptonXModule.forRoot(),
               SideMenuLayoutModule.forRoot(),
               AccountLayoutModule.forRoot(),
+              NgbModule,
   ],
   declarations: [AppComponent],
   providers: [APP_ROUTE_PROVIDER],

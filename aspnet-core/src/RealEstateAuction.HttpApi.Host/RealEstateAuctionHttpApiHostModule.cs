@@ -50,7 +50,7 @@ namespace RealEstateAuction;
     typeof(AbpSwashbuckleModule)
 )]
     public class RealEstateAuctionHttpApiHostModule : AbpModule
-{
+     {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         PreConfigure<OpenIddictBuilder>(builder =>

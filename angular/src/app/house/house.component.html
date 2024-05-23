@@ -1,3 +1,5 @@
+<p class="text-black">{{ notifications }}</p>
+
 <div class="card">
   <div class="card-header">
     <div class="row">
@@ -57,11 +59,14 @@
                   <p class="pe-11">
                     <span class="text-primary fw-bold">Current Bid Price</span>:
                     <span class="text-dark">{{ house.bidPrice | currency : 'EUR' : '€' }}</span>
-                    <button class="custom-btn btn-16 ms-2" (click)="openDialog(this.house.id)">
+                    <button
+                      class="custom-btn btn-16 ms-2"
+                      (click)="openDialog(house.creatorId, house.id)"
+                    >
                       Bid
                     </button>
                   </p>
-                  <div>
+                  <div *ngIf="show(house.id)">
                     <div class="pe-11" *ngFor="let bid of bids">
                       <span class="text-primary fw-bold"> Someone Bid This Price:{{ bid }} </span>
                     </div>

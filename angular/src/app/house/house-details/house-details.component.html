@@ -1,5 +1,5 @@
 <!-- <app-image-uploader [config]="uploaderConfig" [imagesNames]="imagesTest"></app-image-uploader> -->
-<div class="container mt-5">
+<div class="mt-5">
   <ngx-slick-carousel
     class="carousel"
     #slickModal="slick-carousel"
@@ -17,11 +17,17 @@
   </ngx-slick-carousel>
 </div>
 
+<!-- <div class="outPop">
+      <div class="popUpWord line">
+        <h1 class="">Enjoy on your TV</h1>
+      </div>
+    </div> -->
+
 <div class="container mt-2">
   <div class="shadow-box p-4">
     <h1 class="text-dark duration-text">
       <span class="duration-text-time">About</span>
-      <span class="duration-text-time" class="mx-1">The</span>
+      <span class="duration-text-time mx-1">The</span>
       <span class="duration-text-time">House</span>
     </h1>
     <hr />
@@ -32,6 +38,12 @@
           <div class="p-2 house-details">{{ houseDetails.numberOfBedrooms }} Beds</div>
           <div class="p-2 house-details">{{ houseDetails.numberOfBathrooms }} Bath</div>
           <div class="p-2 house-details">{{ houseDetails.numberOfFloors }} Floors</div>
+        </div>
+        <div class="d-flex flex-md-row">
+          <div class="p-2 house-details">{{ houseDetails.sizeInSquareFeet }} sq. ft</div>
+          <div class="p-2 house-details">
+            {{ houseDetails.creationTime | shortDate }} Posted Date
+          </div>
         </div>
       </div>
       <div class="col-md-6">

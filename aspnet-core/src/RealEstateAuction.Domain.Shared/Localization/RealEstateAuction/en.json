@@ -2,8 +2,8 @@
   "Culture": "en",
   "Texts": {
     "Menu:Home": "Home",
-    "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "RealEstateAuction": "Real Estate Auction",
+    "LongWelcomeMessage": "Welcome to the auction.Compete in the bidding",
     "Menu:RealEstateAuction": "Book Store",
     "Menu:RealEstates": "RealEstates",
     "Actions": "Actions",

@@ -42,7 +42,9 @@ export class HouseComponent {
   messages: string[] = this.houseService.messages;
   bidPrice: number = 0;
   currentBidPrice: number;
-  selectedId: string[] = [];
+  //selectedId: string[] = [];
+  selectedId: string[] = this.houseService.selectedId;
+  notifications: string = this.houseService.notification;
   constructor(
     public readonly list: ListService,
     private houseService: HouseService,
@@ -58,15 +60,15 @@ export class HouseComponent {
 
     this.list.hookToQuery(houseStreamCreator).subscribe(response => {
       this.house = response;
-      console.log(this.house);
     });
   }
 
-  send() {
-    this.houseService.send('New Notification');
+  send(userId: string) {
+    let notification = 'Im gonna buy this';
+    this.houseService.send(userId, notification);
   }
 
-  show(id: string) {
+  show(id: string): boolean {
     let a = this.selectedId.includes(id);
     return a;
   }
@@ -84,13 +86,13 @@ export class HouseComponent {
   bidThePrice(id: string, bidPrice: number) {
     this.houseService.bidPrice(id, bidPrice).subscribe({
       next: () => {
-        this.houseService.realTimeBidPrice(bidPrice);
+        this.houseService.realTimeBidPrice(id, bidPrice);
         //this.bids.push(bidPrice);
       },
     });
   }
 
-  openDialog(id: string, bidPrice: number) {
+  openDialog(userId: string, id: string, bidPrice: number) {
     let dialogRef = this.dialog.open(this.callAPIDialog);
     dialogRef.updateSize('500px');
     dialogRef.afterOpened().subscribe(() => {
@@ -101,8 +103,9 @@ export class HouseComponent {
       if (result !== undefined) {
         if (result === 'yes') {
           this.bidThePrice(id, this.bidPrice);
+          this.send(userId);
           var a = this.selectedId.includes(id);
-          if (a == false) {
+          if (a === false) {
             this.selectedId.push(id);
           }
         } else if (result === 'no') {

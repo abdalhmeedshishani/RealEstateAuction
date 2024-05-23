@@ -4,6 +4,7 @@ using RealEstateAuction.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -11,6 +12,7 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
 using Volo.Abp.Users;
+using static Volo.Abp.Identity.Settings.IdentitySettingNames;
 
 namespace RealEstateAuction.Houses
 {
@@ -26,14 +28,16 @@ namespace RealEstateAuction.Houses
         private readonly IRepository<House, Guid> _houseRepository;
         private readonly IRepository<HouseImage, Guid> _houseImageRepository;
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+        private readonly ICurrentUser _currentUser;
 
         public HouseAppService(IRepository<House, Guid> houseRepository, IRepository<HouseImage, Guid> houseImageRepository,
-            IAsyncQueryableExecuter asyncQueryableExecuter)
+            IAsyncQueryableExecuter asyncQueryableExecuter, ICurrentUser currentUser)
        : base(houseRepository)
         {
             _houseRepository = houseRepository;
             _houseImageRepository = houseImageRepository;
             _asyncQueryableExecuter = asyncQueryableExecuter;
+            _currentUser = currentUser;
             GetPolicyName = RealEstateAuctionPermissions.RealEstates.Default;
             //GetListPolicyName = RealEstateAuctionPermissions.RealEstates.Default;
             CreatePolicyName = RealEstateAuctionPermissions.RealEstates.Create;
@@ -58,6 +62,16 @@ namespace RealEstateAuction.Houses
             var houseDto = ObjectMapper.Map<House, HouseDetailsDto>(l);
             return houseDto;
 
+        }
+
+        public override Task<HouseDto> UpdateAsync(Guid id, CreateUpdateHouseDto input)
+        {
+            if (_currentUser.Id != input.CreatorId)
+            {
+                new NotFoundResult();
+            }
+
+            return base.UpdateAsync(id, input);
         }
 
 
