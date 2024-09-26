@@ -2,7 +2,7 @@ import { ConfigStateService, ListService, PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BidOffer, HouseDto, HouseService } from '@proxy/houses';
+import { HouseDto, HouseService } from '@proxy/houses';
 import { UploaderMode, UploaderStyle, UploaderType } from '../uploader/uploaderMode.enum';
 import { UploaderConfig } from '../uploader/uploader.config';
 import { Uploader } from '../uploader/UploaderImage.data';
@@ -27,7 +27,6 @@ export class HouseComponent {
   hasSecuritySystem: boolean = false;
   price: number = 0;
   bids: number[] = this.houseService.bids;
-  testBids: BidOffer[] = this.houseService.testBids;
   uploaderConfig = new UploaderConfig(
     UploaderStyle.Normal,
     UploaderMode.AddEdit,

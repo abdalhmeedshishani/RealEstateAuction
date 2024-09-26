@@ -19,14 +19,17 @@ namespace RealEstateAuction.Home
             _asyncQueryableExecuter = asyncQueryableExecuter;
         }
 
-        public async Task<List<House>> GetTop3HighestBidRealEstate()
+        public async Task<List<House>> GetTopThreeHighestBidRealEstate()
         {
             var houseQuery = await _houseRepository.GetQueryableAsync();
+            var house = await  _houseRepository.WithDetailsAsync(d => d.HouseImages);
 
-            var top3BidPrices = houseQuery.OrderByDescending(d => d.Price).Take(3);
+            var topThreeBidPrices = house.OrderByDescending(d => d.Price).Take(3);
+
+            //var topThreeBidPrices = houseQuery.OrderByDescending(d => d.Price).Take(3);
             //GetTop3Prices(1,null,null,null);
             
-            return await _asyncQueryableExecuter.ToListAsync(top3BidPrices);
+            return await _asyncQueryableExecuter.ToListAsync(topThreeBidPrices);
         }
 
         private static List<int?> GetTop3Prices(int? landPrice, int? housePrice, int? restaurantPrice, int? coffeeshopPrice)

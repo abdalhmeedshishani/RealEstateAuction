@@ -1893,6 +1893,194 @@
             }
           ],
           "actions": {
+            "BidPriceByIdAndBidPrice": {
+              "uniqueName": "BidPriceByIdAndBidPrice",
+              "name": "BidPrice",
+              "httpMethod": "POST",
+              "url": "api/app/house/{id}/bid-price",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "bidPrice",
+                  "typeAsString": "System.Decimal, System.Private.CoreLib",
+                  "type": "System.Decimal",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "bidPrice",
+                  "name": "bidPrice",
+                  "jsonName": null,
+                  "type": "System.Decimal",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "RealEstateAuction.Houses.HouseAppService"
+            },
+            "GetDetailsById": {
+              "uniqueName": "GetDetailsById",
+              "name": "GetDetails",
+              "httpMethod": "GET",
+              "url": "api/app/house/{id}/details",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "RealEstateAuction.Houses.HouseDetailsDto",
+                "typeSimple": "RealEstateAuction.Houses.HouseDetailsDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "RealEstateAuction.Houses.HouseAppService"
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/app/house/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "RealEstateAuction.Houses.CreateUpdateHouseDto, RealEstateAuction.Application.Contracts",
+                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "RealEstateAuction.Houses.HouseDto",
+                "typeSimple": "RealEstateAuction.Houses.HouseDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<RealEstateAuction.Houses.HouseDto,System.Guid,RealEstateAuction.Houses.CreateUpdateHouseDto>"
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/app/house",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "RealEstateAuction.Houses.CreateUpdateHouseDto, RealEstateAuction.Application.Contracts",
+                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "RealEstateAuction.Houses.HouseDto",
+                "typeSimple": "RealEstateAuction.Houses.HouseDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<RealEstateAuction.Houses.HouseDto,RealEstateAuction.Houses.CreateUpdateHouseDto>"
+            },
             "GetListAsyncByInput": {
               "uniqueName": "GetListAsyncByInput",
               "name": "GetListAsync",
@@ -1951,139 +2139,8 @@
                 "type": "Volo.Abp.Application.Dtos.PagedResultDto<RealEstateAuction.Houses.HouseDto>",
                 "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<RealEstateAuction.Houses.HouseDto>"
               },
-              "allowAnonymous": null,
+              "allowAnonymous": true,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<RealEstateAuction.Houses.HouseDto,RealEstateAuction.Houses.HouseDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
-            },
-            "GetDetailsAsyncById": {
-              "uniqueName": "GetDetailsAsyncById",
-              "name": "GetDetailsAsync",
-              "httpMethod": "GET",
-              "url": "api/app/house/{id}/details",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "RealEstateAuction.Houses.HouseDetailsDto",
-                "typeSimple": "RealEstateAuction.Houses.HouseDetailsDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "RealEstateAuction.Houses.HouseAppService"
-            },
-            "CreateAsyncByInput": {
-              "uniqueName": "CreateAsyncByInput",
-              "name": "CreateAsync",
-              "httpMethod": "POST",
-              "url": "api/app/house",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "input",
-                  "typeAsString": "RealEstateAuction.Houses.CreateUpdateHouseDto, RealEstateAuction.Application.Contracts",
-                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "RealEstateAuction.Houses.HouseDto",
-                "typeSimple": "RealEstateAuction.Houses.HouseDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.ICreateAppService<RealEstateAuction.Houses.HouseDto,RealEstateAuction.Houses.CreateUpdateHouseDto>"
-            },
-            "UpdateAsyncByIdAndInput": {
-              "uniqueName": "UpdateAsyncByIdAndInput",
-              "name": "UpdateAsync",
-              "httpMethod": "PUT",
-              "url": "api/app/house/{id}",
-              "supportedVersions": [],
-              "parametersOnMethod": [
-                {
-                  "name": "id",
-                  "typeAsString": "System.Guid, System.Private.CoreLib",
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null
-                },
-                {
-                  "name": "input",
-                  "typeAsString": "RealEstateAuction.Houses.CreateUpdateHouseDto, RealEstateAuction.Application.Contracts",
-                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "isOptional": false,
-                  "defaultValue": null
-                }
-              ],
-              "parameters": [
-                {
-                  "nameOnMethod": "id",
-                  "name": "id",
-                  "jsonName": null,
-                  "type": "System.Guid",
-                  "typeSimple": "string",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": [],
-                  "bindingSourceId": "Path",
-                  "descriptorName": ""
-                },
-                {
-                  "nameOnMethod": "input",
-                  "name": "input",
-                  "jsonName": null,
-                  "type": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "typeSimple": "RealEstateAuction.Houses.CreateUpdateHouseDto",
-                  "isOptional": false,
-                  "defaultValue": null,
-                  "constraintTypes": null,
-                  "bindingSourceId": "Body",
-                  "descriptorName": ""
-                }
-              ],
-              "returnValue": {
-                "type": "RealEstateAuction.Houses.HouseDto",
-                "typeSimple": "RealEstateAuction.Houses.HouseDto"
-              },
-              "allowAnonymous": null,
-              "implementFrom": "Volo.Abp.Application.Services.IUpdateAppService<RealEstateAuction.Houses.HouseDto,System.Guid,RealEstateAuction.Houses.CreateUpdateHouseDto>"
             },
             "DeleteAsyncById": {
               "uniqueName": "DeleteAsyncById",
@@ -2158,6 +2215,32 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Volo.Abp.Application.Services.IReadOnlyAppService<RealEstateAuction.Houses.HouseDto,RealEstateAuction.Houses.HouseDto,System.Guid,Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto>"
+            }
+          }
+        },
+        "RealEstateAuction.Home.HomeAppService": {
+          "controllerName": "Home",
+          "controllerGroupName": "Home",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "RealEstateAuction.Home.HomeAppService",
+          "interfaces": [],
+          "actions": {
+            "GetTop3HighestBidRealEstate": {
+              "uniqueName": "GetTop3HighestBidRealEstate",
+              "name": "GetTop3HighestBidRealEstate",
+              "httpMethod": "GET",
+              "url": "api/app/home/top3Highest-bid-real-estate",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<RealEstateAuction.Houses.House>",
+                "typeSimple": "[RealEstateAuction.Houses.House]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "RealEstateAuction.Home.HomeAppService"
             }
           }
         }
@@ -9593,7 +9676,7 @@
         }
       ]
     },
-    "RealEstateAuction.Houses.HouseDto": {
+    "RealEstateAuction.Houses.HouseDetailsDto": {
       "baseType": "RealEstateAuction.RealEstates.RealEstateDto",
       "isEnum": false,
       "enumNames": null,
@@ -9625,10 +9708,82 @@
           "regex": null
         },
         {
+          "name": "HasGarage",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
           "name": "NumberOfFloors",
           "jsonName": null,
           "type": "System.Int32",
           "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasBasement",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasSwimmingPool",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasFireplace",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasSecuritySystem",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HouseImages",
+          "jsonName": null,
+          "type": "[RealEstateAuction.Houses.HouseImages.HouseImageDto]",
+          "typeSimple": "[RealEstateAuction.Houses.HouseImages.HouseImageDto]",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,
@@ -9767,124 +9922,7 @@
         }
       ]
     },
-    "RealEstateAuction.Houses.HouseDetailsDto": {
-      "baseType": "RealEstateAuction.RealEstates.RealEstateDto",
-      "isEnum": false,
-      "enumNames": null,
-      "enumValues": null,
-      "genericArguments": null,
-      "properties": [
-        {
-          "name": "NumberOfBedrooms",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "NumberOfBathrooms",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "HasGarage",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "NumberOfFloors",
-          "jsonName": null,
-          "type": "System.Int32",
-          "typeSimple": "number",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "HasBasement",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "HasSwimmingPool",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "HasFireplace",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "HasSecuritySystem",
-          "jsonName": null,
-          "type": "System.Boolean",
-          "typeSimple": "boolean",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        },
-        {
-          "name": "HouseImages",
-          "jsonName": null,
-          "type": "[RealEstateAuction.Houses.HouseImageDto.HouseImagesDtos]",
-          "typeSimple": "[RealEstateAuction.Houses.HouseImageDto.HouseImagesDtos]",
-          "isRequired": false,
-          "minLength": null,
-          "maxLength": null,
-          "minimum": null,
-          "maximum": null,
-          "regex": null
-        }
-      ]
-    },
-    "RealEstateAuction.Houses.HouseImageDto.HouseImagesDtos": {
+    "RealEstateAuction.Houses.HouseImages.HouseImageDto": {
       "baseType": "RealEstateAuction.Uploads.UploaderImageDto",
       "isEnum": false,
       "enumNames": null,
@@ -10011,8 +10049,499 @@
         {
           "name": "HouseImages",
           "jsonName": null,
-          "type": "[RealEstateAuction.Houses.HouseImageDto.HouseImagesDtos]",
-          "typeSimple": "[RealEstateAuction.Houses.HouseImageDto.HouseImagesDtos]",
+          "type": "[RealEstateAuction.Houses.HouseImages.HouseImageDto]",
+          "typeSimple": "[RealEstateAuction.Houses.HouseImages.HouseImageDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "RealEstateAuction.Houses.HouseDto": {
+      "baseType": "RealEstateAuction.RealEstates.RealEstateDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NumberOfBedrooms",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NumberOfBathrooms",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NumberOfFloors",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HouseImages",
+          "jsonName": null,
+          "type": "[RealEstateAuction.Houses.HouseImages.HouseImageDto]",
+          "typeSimple": "[RealEstateAuction.Houses.HouseImages.HouseImageDto]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "RealEstateAuction.Houses.House": {
+      "baseType": "RealEstateAuction.RealEstates.RealEstate",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "NumberOfBedrooms",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NumberOfBathrooms",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasGarage",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NumberOfFloors",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasBasement",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasSwimmingPool",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasFireplace",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HasSecuritySystem",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "HouseImages",
+          "jsonName": null,
+          "type": "[RealEstateAuction.Houses.HouseImage]",
+          "typeSimple": "[RealEstateAuction.Houses.HouseImage]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "RealEstateAuction.RealEstates.RealEstate": {
+      "baseType": "Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Address",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "SizeInSquareFeet",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "City",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "State",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ZipCode",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Price",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "BidPrice",
+          "jsonName": null,
+          "type": "System.Decimal",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "IsForSale",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Description",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<T0>": {
+      "baseType": "Volo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<TKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "LastModificationTime",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LastModifierId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Volo.Abp.Domain.Entities.Auditing.CreationAuditedAggregateRoot<T0>": {
+      "baseType": "Volo.Abp.Domain.Entities.AggregateRoot<TKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "CreationTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "CreatorId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Volo.Abp.Domain.Entities.AggregateRoot<T0>": {
+      "baseType": "Volo.Abp.Domain.Entities.BasicAggregateRoot<TKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "ExtraProperties",
+          "jsonName": null,
+          "type": "{System.String:System.Object}",
+          "typeSimple": "{string:object}",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "ConcurrencyStamp",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Volo.Abp.Domain.Entities.BasicAggregateRoot<T0>": {
+      "baseType": "Volo.Abp.Domain.Entities.Entity<TKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": []
+    },
+    "Volo.Abp.Domain.Entities.Entity<T0>": {
+      "baseType": "Volo.Abp.Domain.Entities.Entity",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "TKey",
+          "typeSimple": "TKey",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Volo.Abp.Domain.Entities.Entity": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": []
+    },
+    "RealEstateAuction.Houses.HouseImage": {
+      "baseType": "RealEstateAuction.UploaderImages.UploaderImage",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "HouseId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "RealEstateAuction.UploaderImages.UploaderImage": {
+      "baseType": "Volo.Abp.Domain.Entities.Auditing.AuditedAggregateRoot<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

@@ -70,16 +70,17 @@
     Real Estate That Received The Highest Bids
   </h1>
   <div class="row mt-4">
-    <div class="col-xl-4 position-relative">
-      <img src="../../assets/images/tree-house.jpg" class="img-fluid d-block" alt="" srcset="" />
-      <div class="purple-radiation"></div>
-    </div>
-    <div class="col-xl-4 position-relative">
-      <img src="../../assets/images/inside-house.jpg" class="img-fluid d-block" alt="" srcset="" />
+    <div *ngFor="let houseBidPrice of housesBidPrice" class="col-xl-4 position-relative">
+      <img
+        [src]="getTopThreeHighestBidRealEstateImages(houseBidPrice.houseImages)"
+        class="img-fluid d-block"
+        alt=""
+        srcset=""
+      />
       <div class="purple-radiation"></div>
       <!-- <div class="mid-absolute-position text-white opacity-1">
         <span>Details</span>
-      </div> -->
+      </div>  -->
       <div class="mid-absolute-position">
         <div class="d-flex justify-content-center">
           <a
@@ -88,6 +89,48 @@
           >
             <span class=""> {{ '::Details' | abpLocalization }} </span>
             <!-- <i class="fas fa-info-circle"></i> -->
+          </a>
+          <button class="btn-hover coustom-button">
+            The bid Price Is {{ houseBidPrice.bidPrice }}
+            <span class="coustom-span top"></span>
+            <span class="coustom-span right"></span>
+            <span class="coustom-span bottom"></span>
+            <span class="coustom-span left"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="text-center bg-black container-fluid">
+  <h1 class="bebas-neue-regular p-5 text-white">
+    <span class="neon-color neon-color-cyan">T</span>
+    <span class="neon-color neon-color-cyan">o</span>
+    <span class="neon-color neon-color-cyan">p</span>
+    <span>&nbsp;</span>
+    <span class="neon-color neon-color-cyan">3</span>
+    Real Estate That Received The Highest Bids
+  </h1>
+  <div class="row mt-4">
+    <div class="col-xl-4 position-relative">
+      <img src="../../assets/images/tree-house.jpg" class="img-fluid d-block" alt="" srcset="" />
+      <div class="purple-radiation"></div>
+    </div>
+    <div class="col-xl-4 position-relative">
+      <img src="../../assets/images/inside-house.jpg" class="img-fluid d-block" alt="" srcset="" />
+      <div class="purple-radiation"></div>
+      <div class="mid-absolute-position text-white opacity-1">
+        <span>Details</span>
+      </div>
+      <div class="mid-absolute-position">
+        <div class="d-flex justify-content-center">
+          <a
+            class="text-white d-block btn bg-black p-2 me-2"
+            [routerLink]="['/house-details', 'house.id', 'details']"
+          >
+            <span class=""> {{ '::Details' | abpLocalization }} </span>
+            <i class="fas fa-info-circle"></i>
           </a>
           <button class="btn-hover coustom-button">
             The bid Price Is $10000000
@@ -104,6 +147,6 @@
       <div class="purple-radiation"></div>
     </div>
   </div>
-</section>
+</section> -->
 
 <div class="bg-black w-100" style="height: 40px"></div>

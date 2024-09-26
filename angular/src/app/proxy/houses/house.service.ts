@@ -1,4 +1,4 @@
-import type { BidOffer, CreateUpdateHouseDto, HouseDetailsDto, HouseDto } from './models';
+import type { CreateUpdateHouseDto, HouseDetailsDto, HouseDto } from './models';
 import { RestService, Rest } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
@@ -86,14 +86,15 @@ export class HouseService {
     );
   messages: string[] = [];
   bids: number[] = [];
-  testBids: BidOffer[] = [];
+  selectedId: string[] = [];
+  notification: string;
 
-  send(m: string) {
-    this.connection.send('NewNotification', m);
+  send(m: string, notification: string) {
+    this.connection.send('NewNotification', m, notification);
   }
 
-  realTimeBidPrice(bidPrice: number) {
-    this.connection.send('BidPrice', bidPrice);
+  realTimeBidPrice(id: string, bidPrice: number) {
+    this.connection.send('BidPrice', id, bidPrice);
   }
 
   constructor(private restService: RestService) {
@@ -108,8 +109,9 @@ export class HouseService {
       const newMessage = ` ${messageHere}`;
       this.messages.push(newMessage);
     });
-    this.connection.on('bidPriceReceived', (messageHere: number) => {
+    this.connection.on('bidPriceReceived', (id: string, messageHere: number) => {
       const newMessage = messageHere;
+      this.selectedId.push(id);
       this.bids.push(newMessage);
     });
   }

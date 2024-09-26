@@ -15,6 +15,13 @@ namespace RealEstateAuction.Hubs
     public class NotificationHub : Hub
     {
 
+        private readonly ICurrentUser _currentUserService;
+
+        public NotificationHub(ICurrentUser currentUserService)
+        {
+            _currentUserService = currentUserService;
+        }
+
         /*    public async Task NewNotification(Guid id,string userName,string notification) =>
                 await Clients.User(id.ToString()).SendAsync("notificationReceived", userName, notification);*/
 
@@ -44,7 +51,7 @@ namespace RealEstateAuction.Hubs
         /// <param name="userid"></param>
         /// <returns></returns>
         /// 
-/*        public override async Task OnConnectedAsync()
+        public override async Task OnConnectedAsync()
         {
 
             string? userid = Context.User?.Identity?.Name;
@@ -65,14 +72,14 @@ namespace RealEstateAuction.Hubs
             existUserConnectionIds.Add(Context.ConnectionId);
             ConnectedUsers?.TryAdd(userid, existUserConnectionIds);
             await base.OnConnectedAsync();
-        }*/
+        }
 
         /// <summary>
         /// OnDisconnectedAsync
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-        /*public override async Task OnDisconnectedAsync(Exception? exception)
+        public override async Task OnDisconnectedAsync(Exception? exception)
         {
             string? userid = Context.User?.Identity?.Name;
             // save connection
@@ -89,13 +96,14 @@ namespace RealEstateAuction.Hubs
             }
 
             await base.OnDisconnectedAsync(exception);
-        }*/
+        }
         #endregion
 
         #region Message
 
         public async Task NewNotification(string userid, string message)
         {
+
             List<string>? existUserConnectionIds = null;
 
             ConnectedUsers?.TryGetValue(userid, out existUserConnectionIds);
@@ -106,29 +114,18 @@ namespace RealEstateAuction.Hubs
             }
             existUserConnectionIds.Add(Context.ConnectionId);
             ConnectedUsers?.TryAdd(userid, existUserConnectionIds);
-            
 
-           var l =  Context.User?.Identity?.IsAuthenticated;
-            l = true;
-            string? fromUser = Context.User?.Identity?.Name;
+            List<string>? fromUser = ConnectedUsers["0"];
 
-            string? ToUser = userid;
-            await Clients.Clients(existUserConnectionIds).SendAsync("ReceiveMessage_SpecificUser", ConnectedUsers[userid], ConnectedUsers[userid], message);
+            List<string>? toUser = ConnectedUsers["1"];
+            await Clients.Clients(existUserConnectionIds).SendAsync("ReceiveMessage_SpecificUser",fromUser, toUser, message);
         }
         #endregion
 
     public async Task BidPrice(Guid id,decimal bidPrice) =>
             await Clients.All.SendAsync("bidPriceReceived", id , bidPrice);
 
-        public async Task TestBidPrice(BidOffer bidOffer) =>
-            await Clients.All.SendAsync("testBidPriceReceived", bidOffer.Id, bidOffer.BidPrice);
     }
 
-    public class BidOffer
-    {
-        public Guid Id { get; set; }
 
-        [Column(TypeName = "decimal(18,4)")]
-        public List<decimal> BidPrice { get; set; }
-    }
 }

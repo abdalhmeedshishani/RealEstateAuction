@@ -39,7 +39,6 @@ namespace RealEstateAuction.Houses
             _asyncQueryableExecuter = asyncQueryableExecuter;
             _currentUser = currentUser;
             GetPolicyName = RealEstateAuctionPermissions.RealEstates.Default;
-            //GetListPolicyName = RealEstateAuctionPermissions.RealEstates.Default;
             CreatePolicyName = RealEstateAuctionPermissions.RealEstates.Create;
             UpdatePolicyName = RealEstateAuctionPermissions.RealEstates.Edit;
             DeletePolicyName = RealEstateAuctionPermissions.RealEstates.Delete;
@@ -56,10 +55,10 @@ namespace RealEstateAuction.Houses
         {
             var queryAbleHouse = await _houseRepository.WithDetailsAsync(x => x.HouseImages);
             
-            var houses = queryAbleHouse.Where(x => x.Id == id);
-            var l = await _asyncQueryableExecuter.SingleAsync(houses);
+            var houseId = queryAbleHouse.Where(x => x.Id == id);
+            var house = await _asyncQueryableExecuter.SingleAsync(houseId);
 
-            var houseDto = ObjectMapper.Map<House, HouseDetailsDto>(l);
+            var houseDto = ObjectMapper.Map<House, HouseDetailsDto>(house);
             return houseDto;
 
         }
@@ -69,6 +68,9 @@ namespace RealEstateAuction.Houses
             if (_currentUser.Id != input.CreatorId)
             {
                 new NotFoundResult();
+            } else if(_currentUser.UserName == "admin")
+            {
+                return base.UpdateAsync(id, input);
             }
 
             return base.UpdateAsync(id, input);

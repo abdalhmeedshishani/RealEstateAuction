@@ -7,7 +7,11 @@ import {
   NgbSlideEvent,
   NgbSlideEventSource,
 } from '@ng-bootstrap/ng-bootstrap';
+import { HomeService } from '@proxy/home';
+import { HouseDto } from '@proxy/houses';
+import { HouseImageDto } from '@proxy/houses/house-images';
 import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +26,7 @@ export class HomeComponent implements OnInit {
   pauseOnFocus = true;
   model: any;
   searchForm: FormGroup;
+  housesBidPrice: any[];
 
   //images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
   images: any = [
@@ -41,13 +46,21 @@ export class HomeComponent implements OnInit {
       )
     );
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private homeSVC: HomeService
+  ) {}
   get hasLoggedIn(): boolean {
     return this.authService.isAuthenticated;
   }
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.homeSVC.getTopThreeHighestBidRealEstate().subscribe(d => {
+      next: this.housesBidPrice = d;
+    });
+  }
   togglePaused() {
     if (this.paused) {
       this.carousel.cycle();
@@ -77,6 +90,10 @@ export class HomeComponent implements OnInit {
 
   login() {
     this.authService.navigateToLogin();
+  }
+
+  getTopThreeHighestBidRealEstateImages(imgName: HouseImageDto[]): string {
+    return `${environment.imgStorageUrl}/${imgName[0].name}`;
   }
 
   buildForm() {

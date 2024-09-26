@@ -1,4 +1,4 @@
-import * as HouseImageDto from './house-image-dto';
+import * as HouseImages from './house-images';
 export * from './house.service';
 export * from './models';
-export { HouseImageDto };
+export { HouseImages };

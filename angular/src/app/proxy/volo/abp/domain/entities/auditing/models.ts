@@ -1,5 +1,4 @@
 import type { AggregateRoot } from '../models';
-import type { TKey } from '../../../../../models';
 
 export interface AuditedAggregateRoot<TKey> extends CreationAuditedAggregateRoot<TKey> {
   lastModificationTime?: string;

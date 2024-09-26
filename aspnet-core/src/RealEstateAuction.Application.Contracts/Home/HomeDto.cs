@@ -7,5 +7,7 @@ namespace RealEstateAuction.Home
 {
     public class HomeDto : AuditedEntityDto<Guid>
     {
+
+        public int MyProperty { get; set; }
     }
 }

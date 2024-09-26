@@ -1,5 +1,5 @@
 import { RealEstateDto } from '../real-estates/models';
-import type { HouseImagesDtos } from './house-image-dto/models';
+import type { HouseImageDto } from './house-images/models';
 
 export interface CreateUpdateHouseDto extends RealEstateDto {
   numberOfBedrooms: number;
@@ -10,7 +10,7 @@ export interface CreateUpdateHouseDto extends RealEstateDto {
   hasSwimmingPool: boolean;
   hasFireplace: boolean;
   hasSecuritySystem: boolean;
-  houseImages: HouseImagesDtos[];
+  houseImages: HouseImageDto[];
 }
 
 export class HouseDetailsDto extends RealEstateDto {
@@ -22,14 +22,14 @@ export class HouseDetailsDto extends RealEstateDto {
   hasSwimmingPool: boolean;
   hasFireplace: boolean;
   hasSecuritySystem: boolean;
-  houseImages: HouseImagesDtos[] = [];
+  houseImages: HouseImageDto[] = [];
 }
 
 export class HouseDto extends RealEstateDto {
   numberOfBedrooms: number;
   numberOfBathrooms: number;
   numberOfFloors: number;
-  houseImages: HouseImagesDtos[] = [];
+  houseImages: HouseImageDto[] = [];
 }
 
 export class BidOffer {
