@@ -1,5 +1,5 @@
 import type { UploaderImageDto } from '../../uploads/models';
 
-export interface HouseImagesDtos extends UploaderImageDto {
+export interface HouseImageDto extends UploaderImageDto {
   houseId?: string;
 }

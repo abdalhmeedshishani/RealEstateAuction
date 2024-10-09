@@ -1,6 +1,6 @@
 import { ConfigStateService, ListService, PagedResultDto } from '@abp/ng.core';
 import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HouseDto, HouseService } from '@proxy/houses';
 import { UploaderMode, UploaderStyle, UploaderType } from '../uploader/uploaderMode.enum';
@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class HouseComponent {
   house = { items: [], totalCount: 0 } as PagedResultDto<HouseDto>;
+  admin: boolean;
   isModalOpen = false;
   selectedHouse: HouseDto = new HouseDto();
   form: FormGroup;
@@ -25,6 +26,7 @@ export class HouseComponent {
   hasSwimmingPool: boolean = false;
   hasSecuritySystem: boolean = false;
   price: number = 0;
+  bids: number[] = this.houseService.bids;
   uploaderConfig = new UploaderConfig(
     UploaderStyle.Normal,
     UploaderMode.AddEdit,
@@ -37,6 +39,11 @@ export class HouseComponent {
   );
   authorizationChecked: boolean = false;
   messages: string[] = this.houseService.messages;
+  bidPrice: number = 0;
+  currentBidPrice: number;
+  //selectedId: string[] = [];
+  selectedId: string[] = this.houseService.selectedId;
+  notifications: string = this.houseService.notification;
   constructor(
     public readonly list: ListService,
     private houseService: HouseService,
@@ -52,34 +59,54 @@ export class HouseComponent {
 
     this.list.hookToQuery(houseStreamCreator).subscribe(response => {
       this.house = response;
-      console.log(this.house);
     });
   }
 
-  send() {
-    this.houseService.send('New Notification');
+  send(userId: string) {
+    let notification = 'Im gonna buy this';
+    this.houseService.send(userId, notification);
+  }
+
+  show(id: string): boolean {
+    let a = this.selectedId.includes(id);
+    return a;
   }
 
   isCurrentUserAuthorized(id: string): boolean {
-    console.log('isCurrentUserAuthorized called with postId:', id);
     let currentUser = this.config.getOne('currentUser');
-    //console.log(currentUser.id);
-    return currentUser.id === id;
+    if (currentUser.userName == 'admin') {
+      this.admin = true;
+      return false;
+    } else if (currentUser.id === id) {
+      return true;
+    }
   }
 
-  g(price: number) {
-    console.log(price);
+  bidThePrice(id: string, bidPrice: number) {
+    this.houseService.bidPrice(id, bidPrice).subscribe({
+      next: () => {
+        this.houseService.realTimeBidPrice(id, bidPrice);
+        //this.bids.push(bidPrice);
+      },
+    });
   }
 
-  openDialog() {
+  openDialog(userId: string, id: string, bidPrice: number) {
     let dialogRef = this.dialog.open(this.callAPIDialog);
     dialogRef.updateSize('500px');
+    dialogRef.afterOpened().subscribe(() => {
+      this.currentBidPrice = bidPrice;
+    });
     dialogRef.afterClosed().subscribe(result => {
       // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
       if (result !== undefined) {
         if (result === 'yes') {
-          // TODO: Replace the following line with your code.
-          console.log('User clicked yes.');
+          this.bidThePrice(id, this.bidPrice);
+          this.send(userId);
+          var a = this.selectedId.includes(id);
+          if (a === false) {
+            this.selectedId.push(id);
+          }
         } else if (result === 'no') {
           // TODO: Replace the following line with your code.
           console.log('User clicked no.');

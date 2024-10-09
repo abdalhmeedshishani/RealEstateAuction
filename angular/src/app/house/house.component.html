@@ -1,7 +1,4 @@
-<button (click)="send()">click</button>
-<div *ngFor="let message of messages">
-  <span>{{ message }}</span>
-</div>
+<p class="text-black">{{ notifications }}</p>
 
 <div class="card">
   <div class="card-header">
@@ -62,13 +59,24 @@
                   <p class="pe-11">
                     <span class="text-primary fw-bold">Current Bid Price</span>:
                     <span class="text-dark">{{ house.bidPrice | currency : 'EUR' : '€' }}</span>
-                    <button class="custom-btn btn-16 ms-2" (click)="openDialog()">Bid</button>
+                    <button
+                      class="custom-btn btn-16 ms-2"
+                      (click)="openDialog(house.creatorId, house.id)"
+                    >
+                      Bid
+                    </button>
                   </p>
+                  <div *ngIf="show(house.id)">
+                    <div class="pe-11" *ngFor="let bid of bids">
+                      <span class="text-primary fw-bold"> Someone Bid This Price:{{ bid }} </span>
+                    </div>
+                    <!-- <span *ngIf="AddBidPriceInSelectedHouse(this.house.creatorId)"></span> -->
+                  </div>
                 </div>
                 <div class="d-flex">
-                  <div class="p-2">floors: {{ house.numberOfFloors }}</div>
-                  <div class="p-2">ba: {{ house.numberOfBathrooms }}</div>
-                  <div class="p-2">bds: {{ house.numberOfBedrooms }}</div>
+                  <div class="p-2">Beds: {{ house.numberOfBedrooms }}</div>
+                  <div class="p-2">Bath: {{ house.numberOfBathrooms }}</div>
+                  <div class="p-2">Floors: {{ house.numberOfFloors }}</div>
                 </div>
                 <!-- <img src="../../assets/images/Untitled.png" alt="" /> -->
               </mat-card-content>
@@ -84,7 +92,19 @@
                 </a>
                 <div>
                   <button
-                    *ngSwitchDefault="isCurrentUserAuthorized(this.house.creatorId)"
+                    *ngIf="isCurrentUserAuthorized(this.house.creatorId) === true"
+                    mat-raised-button
+                    class="me-2"
+                    color="primary"
+                    (click)="editHouse(house.id)"
+                  >
+                    <span>
+                      {{ '::Edit' | abpLocalization }}
+                    </span>
+                    <!-- <i class="fas fa-edit"></i> -->
+                  </button>
+                  <button
+                    *ngIf="isCurrentUserAuthorized(this.house.creatorId) === false"
                     mat-raised-button
                     class="me-2"
                     color="primary"
@@ -267,12 +287,18 @@
   <img src="../../assets/images/Raise-Price.png" width="70px" height="70px" alt="" srcset="" />
   <mat-form-field floatLabel="always">
     <mat-label>Amount</mat-label>
-    <input matInput type="number" class="example-right-align" placeholder="0.00" />
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="this.bidPrice"
+      [value]="this.currentBidPrice"
+      class="example-right-align"
+      placeholder="0.00"
+    />
     <span matTextPrefix>$&nbsp;</span>
     <!-- <span matTextSuffix>.00</span> -->
   </mat-form-field>
   <mat-dialog-actions align="end">
-    <button mat-button matDialogClose="no">No</button>
-    <button mat-button matDialogClose="yes">Yes</button>
+    <button class="btn btn-primary" matDialogClose="yes">Bid Price</button>
   </mat-dialog-actions>
 </ng-template>

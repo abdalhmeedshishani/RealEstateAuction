@@ -10,7 +10,19 @@ import * as signalR from '@microsoft/signalr';
 export class HouseService {
   apiName = 'Default';
 
-  connection = new signalR.HubConnectionBuilder().withUrl('https://localhost:44381/hub').build();
+  connection: signalR.HubConnection = new signalR.HubConnectionBuilder()
+    .withUrl('https://localhost:44381/hub')
+    .build();
+
+  bidPrice = (id: string, bidPrice: number, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, any>(
+      {
+        method: 'POST',
+        url: `/api/app/house/${id}/bid-price`,
+        body: bidPrice,
+      },
+      { apiName: this.apiName, ...config }
+    );
 
   create = (input: CreateUpdateHouseDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, HouseDto>(
@@ -73,21 +85,34 @@ export class HouseService {
       { apiName: this.apiName, ...config }
     );
   messages: string[] = [];
-  message: string = '';
+  bids: number[] = [];
+  selectedId: string[] = [];
+  notification: string;
 
-  send(m: string) {
-    this.connection.send('NewNotification', m);
+  send(m: string, notification: string) {
+    this.connection.send('NewNotification', m, notification);
+  }
+
+  realTimeBidPrice(id: string, bidPrice: number) {
+    this.connection.send('BidPrice', id, bidPrice);
   }
 
   constructor(private restService: RestService) {
     // this.connection.onclose(async () => {
     //   await this.connection.start();
     // });
+    this.connection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err));
     this.connection.on('notificationReceived', (messageHere: string) => {
       const newMessage = ` ${messageHere}`;
       this.messages.push(newMessage);
     });
-    this.connection.start();
-    console.log('this is start:', this.connection.start());
+    this.connection.on('bidPriceReceived', (id: string, messageHere: number) => {
+      const newMessage = messageHere;
+      this.selectedId.push(id);
+      this.bids.push(newMessage);
+    });
   }
 }

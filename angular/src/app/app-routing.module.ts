@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   { path: 'houses', loadChildren: () => import('./house/house.module').then(m => m.HouseModule) },
   {
-    path: 'house-details',
+    path: 'house-details/:id/details',
     loadChildren: () =>
       import('./house/house-details/house-details.module').then(m => m.HouseDetailsModule),
   },

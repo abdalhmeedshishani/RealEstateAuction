@@ -34,6 +34,10 @@ using RealEstateAuction.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using RealEstateAuction.Hubs;
+using Autofac.Core;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using static Volo.Abp.Identity.IdentityPermissions;
 
 
 namespace RealEstateAuction;
@@ -50,7 +54,7 @@ namespace RealEstateAuction;
     typeof(AbpSwashbuckleModule)
 )]
     public class RealEstateAuctionHttpApiHostModule : AbpModule
-{
+     {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         PreConfigure<OpenIddictBuilder>(builder =>

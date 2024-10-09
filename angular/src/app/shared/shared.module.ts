@@ -5,6 +5,7 @@ import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
 import { UploaderModule } from '../uploader/uploader.module';
 import { UploaderComponent } from '../uploader/uploader.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
   declarations: [UploaderComponent],
